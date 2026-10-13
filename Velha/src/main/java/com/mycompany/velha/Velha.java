@@ -14,75 +14,80 @@ import java.util.Scanner;
  */
 public class Velha {
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
 
-Scanner entrada = new Scanner (System.in);
-        
-        
- Tabuleiro tabuleiro = new Tabuleiro("cada jogador deve escolher um simbolo, "
-                        + "jogadores devem jogar auternadamente");
-    
-Jogador jogador1 = new Jogador(1,"roy",'0');
-Jogador jogador2 = new Jogador(2,"yor",'x');
+    Scanner entrada = new Scanner(System.in);
 
+    Tabuleiro tabuleiro = new Tabuleiro(
+        "Cada jogador deve escolher um símbolo e jogar alternadamente"
+    );
 
-       do{ 
-       
-          tabuleiro.mostrarTabuleiro();
-           
-           
-           
-        if(tabuleiro.getJogadordavez() == 1){
-        System.out.println("vez do jogar 1");
-         String local = entrada.nextLine();                           
-         
-        tabuleiro.marcar(jogador1.getSimbolo(),local);
-        
+    Jogador jogador1 = new Jogador(1, "roy", 'O');
+    Jogador jogador2 = new Jogador(2, "yor", 'X');
+
+    String local;
+    boolean jogadaValida;
+    int jogadas = 0;
+
+    do {
         tabuleiro.mostrarTabuleiro();
-         
-        tabuleiro.setJogadordavez(2);
-        tabuleiro.verificarGanhador(jogador1.getSimbolo(),jogador1.getNome());
+
+        // Jogador 1
+        do {
+            System.out.println("Vez do jogador " + jogador1.getNome());
+            System.out.print("Escolha uma posição: ");
+
+            local = entrada.nextLine().trim().toLowerCase();
+
+            if (tabuleiro.estaVazio(local)) {
+                tabuleiro.marcar(jogador1.getSimbolo(), local);
+                jogadaValida = true;
+                jogadas++;
+            } else {
+                System.out.println("Posição ocupada ou inválida!");
+                jogadaValida = false;
+            }
+
+        } while (!jogadaValida);
+
+        tabuleiro.mostrarTabuleiro();
+        tabuleiro.verificarGanhador(
+            jogador1.getSimbolo(), jogador1.getNome()
+        );
+
+        // Jogador 2 só joga se ninguém venceu
+        if (!tabuleiro.isTeveumvencedor() && jogadas < 9) {
+
+            do {
+                System.out.println("Vez do jogador " + jogador2.getNome());
+                System.out.print("Escolha uma posição: ");
+
+                local = entrada.nextLine().trim().toLowerCase();
+
+                if (tabuleiro.estaVazio(local)) {
+                    tabuleiro.marcar(jogador2.getSimbolo(), local);
+                    jogadaValida = true;
+                    jogadas++;
+                } else {
+                    System.out.println("Posição ocupada ou inválida!");
+                    jogadaValida = false;
+                }
+
+            } while (!jogadaValida);
+
+            tabuleiro.mostrarTabuleiro();
+            tabuleiro.verificarGanhador(
+                jogador2.getSimbolo(), jogador2.getNome()
+            );
         }
 
-        else {
-        System.out.println("jogador 2");
-        String local = entrada.nextLine();
-        tabuleiro.marcar(jogador2.getSimbolo(),local);
-        tabuleiro.setJogadordavez(1);
-        tabuleiro.verificarGanhador(jogador2.getSimbolo(),jogador2.getNome());
-        }  
+    } while (!tabuleiro.isTeveumvencedor() && jogadas < 9);
 
-       
-       }while(tabuleiro.isTeveumvencedor() == false);
-        
-
-        
-        entrada.close();
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
+    if (!tabuleiro.isTeveumvencedor()) {
+        System.out.println("Empate!");
     }
+
+    System.out.println("Fim de jogo!");
+    entrada.close();
+}
 }

@@ -111,11 +111,11 @@ public class Tabuleiro {
     System.out.printf("""
                          1    2   3
                            |      |   
-                    a    %c | %c    |%c             
-                     ------|------|------
-                    b   %c  |  %c   |%c         
-                     ------|------|------
-                    c    %c |  %c   |%c          
+                    a    %c |  %c   | %c             
+                     ------+------+------
+                    b   %c  |  %c   | %c         
+                     ------+------+------
+                    c    %c |  %c   | %c          
                            |      |
                        """,a1,a2,a3,b1,b2,b3,c1,c2,c3);
 
@@ -159,51 +159,84 @@ public class Tabuleiro {
              case "c3" :
                    this.c3 = simbolo;
                break;      
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-       
+
        
        }
-   } 
+   }
 
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   
+
+    public boolean estaVazio(String coordenada) {
+
+        switch (coordenada) {
+
+            case "a1":
+                return a1 == ' ';
+
+            case "a2":
+                return a2 == ' ';
+
+            case "a3":
+                return a3 == ' ';
+
+            case "b1":
+                return b1 == ' ';
+
+            case "b2":
+                return b2 == ' ';
+
+            case "b3":
+                return b3 == ' ';
+
+            case "c1":
+                return c1 == ' ';
+
+            case "c2":
+                return c2 == ' ';
+
+            case "c3":
+                return c3 == ' ';
+
+            default:
+                System.out.println("Posição inválida!");
+                return false;
+        }
+    }
 }
+   
+   
+    
+
+
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+       
+
+
+    
+    
